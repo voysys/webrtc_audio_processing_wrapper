@@ -2,7 +2,7 @@
 
 ## Prerequisites
 - cmake >= 3.10
-- meson
+- meson >= 0.55
 - ninja
 
 ## Windows
