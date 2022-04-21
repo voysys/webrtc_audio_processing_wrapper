@@ -1,6 +1,14 @@
 #ifndef WEBRTC_AUDIO_PROCESSING_WRAPPER_HPP_
 #define WEBRTC_AUDIO_PROCESSING_WRAPPER_HPP_
 
+#if defined(_MSC_VER)
+#define EXPORT __declspec(dllexport)
+#define CALL   __stdcall
+#else
+#define EXPORT __attribute__((visibility("default")))
+#define CALL
+#endif
+
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -273,33 +281,33 @@ extern "C" {
 #endif
 
 // Creates a new instance of the signal processor.
-struct AudioProcessing * webrtc_audio_processing_audio_processing_create(
-    struct InitializationConfig init_config, int * error);
+EXPORT struct AudioProcessing * CALL
+webrtc_audio_processing_audio_processing_create(struct InitializationConfig init_config, int * error);
 
 // Processes and modifies the audio frame from a capture device. Each element in
 // |channels| is an array of float representing a single-channel frame of 10 ms
 // length. Returns an error code or |kNoError|.
-int webrtc_audio_processing_process_capture_frame(struct AudioProcessing * ap, float ** channels);
+EXPORT int CALL webrtc_audio_processing_process_capture_frame(struct AudioProcessing * ap, float ** channels);
 
 // Processes and optionally modifies the audio frame from a playback device.
 // Each element in |channels| is an array of float representing a single-channel
 // frame of 10 ms length. Returns an error code or |kNoError|.
-int webrtc_audio_processing_process_render_frame(struct AudioProcessing * ap, float ** channel3);
+EXPORT int CALL webrtc_audio_processing_process_render_frame(struct AudioProcessing * ap, float ** channel3);
 
 // Returns statistics from the last |process_capture_frame()| call.
-struct Stats webrtc_audio_processing_get_stats(struct AudioProcessing * ap);
+EXPORT struct Stats CALL webrtc_audio_processing_get_stats(struct AudioProcessing * ap);
 
 // Immediately updates the configurations of the signal processor.
 // May be called multiple times after the initialization and during processing.
-void webrtc_audio_processing_set_config(
-    struct AudioProcessing * ap, struct WebrtcAudioProcessingConfig * config);
+EXPORT void CALL
+webrtc_audio_processing_set_config(struct AudioProcessing * ap, struct WebrtcAudioProcessingConfig * config);
 
 // Every processor created by |audio_processing_create()| needs to destroyed by
 // this function.
-void webrtc_audio_processing_audio_processing_delete(struct AudioProcessing * ap);
+EXPORT void CALL webrtc_audio_processing_audio_processing_delete(struct AudioProcessing * ap);
 
 // Returns true if the code indicates a successful operation.
-bool webrtc_audio_processing_is_success(int code);
+EXPORT bool CALL webrtc_audio_processing_is_success(int code);
 
 #ifdef __cplusplus
 }
