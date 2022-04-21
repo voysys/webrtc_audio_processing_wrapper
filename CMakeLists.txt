@@ -54,8 +54,9 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 
   target_link_libraries(
     ${CMAKE_PROJECT_NAME}
-    Winmm
-    ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/artifacts/webrtc/lib/libwebrtc-audio-processing.a
+    PUBLIC Winmm
+    PRIVATE
+      ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/artifacts/webrtc/lib/libwebrtc-audio-processing.a
   )
 
 endif()
@@ -94,11 +95,10 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 
   target_link_libraries(
     ${CMAKE_PROJECT_NAME}
-    ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/artifacts/webrtc/lib/libwebrtc-audio-processing.a
+    PRIVATE
+      ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/artifacts/webrtc/lib/libwebrtc-audio-processing.a
   )
 endif()
-
-target_link_libraries(${CMAKE_PROJECT_NAME})
 
 target_include_directories(
   ${CMAKE_PROJECT_NAME}

@@ -73,8 +73,8 @@ struct AudioProcessing {
     // std::vector<std::vector<float>> render_interleave_buffer;
 };
 
-AudioProcessing * webrtc_audio_processing_audio_processing_create(
-    const InitializationConfig init_config, int * error) {
+extern "C" EXPORT AudioProcessing * CALL
+webrtc_audio_processing_audio_processing_create(const InitializationConfig init_config, int * error) {
     AudioProcessing * ap = new AudioProcessing;
     ap->processor.reset(webrtc::AudioProcessingBuilder().Create());
 
@@ -106,26 +106,29 @@ AudioProcessing * webrtc_audio_processing_audio_processing_create(
     return ap;
 }
 
-int webrtc_audio_processing_process_capture_frame(AudioProcessing * ap, float ** channels) {
+extern "C" EXPORT int CALL
+webrtc_audio_processing_process_capture_frame(AudioProcessing * ap, float ** channels) {
     auto * p = ap->processor.get();
 
     p->set_stream_delay_ms(ap->stream_delay_ms.has_value ? ap->stream_delay_ms.value : 0);
 
     return p->ProcessStream(channels, ap->capture_stream_config, ap->capture_stream_config, channels);
 }
-int webrtc_audio_processing_process_render_frame(AudioProcessing * ap, float ** channels) {
+extern "C" EXPORT int CALL
+webrtc_audio_processing_process_render_frame(AudioProcessing * ap, float ** channels) {
     return ap->processor->ProcessReverseStream(
         channels, ap->render_stream_config, ap->render_stream_config, channels);
 }
-Stats webrtc_audio_processing_get_stats(AudioProcessing * ap) {
+
+extern "C" EXPORT Stats CALL webrtc_audio_processing_get_stats(AudioProcessing * ap) {
     (void)ap;
     // TODO: add stats?
     Stats stats = {};
     return stats;
 }
 
-void webrtc_audio_processing_set_config(
-    struct AudioProcessing * ap, struct WebrtcAudioProcessingConfig * config) {
+extern "C" EXPORT void CALL
+webrtc_audio_processing_set_config(struct AudioProcessing * ap, struct WebrtcAudioProcessingConfig * config) {
     auto * p = ap->processor.get();
 
     webrtc::AudioProcessing::Config extra_config;
@@ -176,10 +179,10 @@ void webrtc_audio_processing_set_config(
     p->ApplyConfig(extra_config);
 }
 
-void webrtc_audio_processing_audio_processing_delete(AudioProcessing * ap) {
+extern "C" EXPORT void CALL webrtc_audio_processing_audio_processing_delete(AudioProcessing * ap) {
     delete ap;
 }
 
-bool webrtc_audio_processing_is_success(const int code) {
+extern "C" EXPORT bool CALL webrtc_audio_processing_is_success(const int code) {
     return code == webrtc::AudioProcessing::kNoError;
 }
