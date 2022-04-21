@@ -7,22 +7,22 @@ REM   Meson
 REM   Ninja
 
 REM TODO: SET VERSION
-set VERSION=master
+SET VERSION=master
+
+SET WEBRTC_ARTIFACTS_DIR=%cd%\artifacts\webrtc
+SET ABSL_ARTIFACTS_DIR=%cd%\artifacts\absl
 
 rmdir /q /s artifacts
-rmdir /q /s build
 
-mkdir build
 mkdir artifacts
 mkdir artifacts\webrtc
 mkdir artifacts\absl
 
-SET WEBRTC_ARTIFACTS_DIR=\\?\%cd%\artifacts\webrtc
-SET ABSL_ARTIFACTS_DIR=\\?\%cd%\artifacts\absl
-
-REM Build webrtc-audio-processing
-
-cd build
+REM Build webrtc-audio-processing in %TEMP% to avoid long path issues
+pushd %TEMP%
+rmdir /q /s webrtc_audio
+mkdir webrtc_audio
+cd webrtc_audio
 
 git clone --depth 1 https://github.com/voysys/webrtc-audio-processing.git -b %VERSION%
 
@@ -32,6 +32,8 @@ mkdir build
 meson . build --buildtype=release -Dprefix=%WEBRTC_ARTIFACTS_DIR%
 ninja -C build
 ninja -C build install
+
+popd
 
 REM Build abseil only for the headers...
 
