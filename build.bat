@@ -2,8 +2,6 @@
 
 setlocal
 
-CALL enable_long_path.reg || exit /b
-
 cd thirdparty
 CALL build.bat
 cd ..
