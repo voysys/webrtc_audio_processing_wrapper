@@ -2,3 +2,4 @@ target/
 vc140.pdb
 build/
 .vscode/
+install/

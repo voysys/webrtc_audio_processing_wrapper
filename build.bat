@@ -19,6 +19,3 @@ cmake --build . --config Release
 cmake --install .
 cd ..
 
-copy /Y %INSTALL_DIR%\lib\%WRAPPER_NAME%.lib ..\..\..\lib\windows\x86_64\
-copy /Y %INSTALL_DIR%\bin\%WRAPPER_NAME%.dll ..\..\..\lib\windows\x86_64\
-copy /Y %WRAPPER_NAME%.h ..\..\..\include\windows\
