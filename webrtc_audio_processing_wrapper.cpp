@@ -99,8 +99,7 @@ extern "C" EXPORT Stats CALL get_stats(AudioProcessing * ap) {
     return stats;
 }
 
-extern "C" EXPORT void CALL
-set_config(struct AudioProcessing * ap, struct WebrtcAudioProcessingConfig * config) {
+extern "C" EXPORT void CALL set_config(struct AudioProcessing * ap, struct Config * config) {
     auto * p = ap->processor.get();
 
     webrtc::AudioProcessing::Config extra_config;

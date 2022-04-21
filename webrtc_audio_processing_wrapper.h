@@ -190,7 +190,7 @@ struct VoiceDetection {
 };
 
 /// <div rustbindgen>Config that can be used mid-processing.</div>
-struct WebrtcAudioProcessingConfig {
+struct Config {
     struct EchoCancellation echo_cancellation;
     struct GainControl gain_control;
     struct NoiseSuppression noise_suppression;
@@ -299,7 +299,7 @@ EXPORT struct Stats CALL get_stats(struct AudioProcessing * ap);
 
 // Immediately updates the configurations of the signal processor.
 // May be called multiple times after the initialization and during processing.
-EXPORT void CALL set_config(struct AudioProcessing * ap, struct WebrtcAudioProcessingConfig * config);
+EXPORT void CALL set_config(struct AudioProcessing * ap, struct Config * config);
 
 // Every processor created by |audio_processing_create()| needs to destroyed by
 // this function.
