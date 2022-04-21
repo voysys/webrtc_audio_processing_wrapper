@@ -17,8 +17,8 @@ mkdir artifacts
 mkdir artifacts\webrtc
 mkdir artifacts\absl
 
-SET WEBRTC_ARTIFACTS_DIR=%cd%\artifacts\webrtc
-SET ABSL_ARTIFACTS_DIR=%cd%\artifacts\absl
+SET WEBRTC_ARTIFACTS_DIR=\\?\%cd%\artifacts\webrtc
+SET ABSL_ARTIFACTS_DIR=\\?\%cd%\artifacts\absl
 
 REM Build webrtc-audio-processing
 
