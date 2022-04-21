@@ -5,7 +5,7 @@ project(
   VERSION 1.0
   LANGUAGES CXX)
 
-add_library(${CMAKE_PROJECT_NAME} SHARED webrtc_audio_processing_wrapper.h
+add_library(${CMAKE_PROJECT_NAME} STATIC webrtc_audio_processing_wrapper.h
                                          webrtc_audio_processing_wrapper.cpp)
 
 set_target_properties(
