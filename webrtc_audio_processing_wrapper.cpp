@@ -74,7 +74,7 @@ struct AudioProcessing {
 };
 
 extern "C" EXPORT AudioProcessing * CALL
-webrtc_audio_processing_audio_processing_create(const InitializationConfig init_config, int * error) {
+audio_processing_create(const InitializationConfig init_config, int * error) {
     AudioProcessing * ap = new AudioProcessing;
     ap->processor.reset(webrtc::AudioProcessingBuilder().Create());
 
@@ -106,21 +106,19 @@ webrtc_audio_processing_audio_processing_create(const InitializationConfig init_
     return ap;
 }
 
-extern "C" EXPORT int CALL
-webrtc_audio_processing_process_capture_frame(AudioProcessing * ap, float ** channels) {
+extern "C" EXPORT int CALL process_capture_frame(AudioProcessing * ap, float ** channels) {
     auto * p = ap->processor.get();
 
     p->set_stream_delay_ms(ap->stream_delay_ms.has_value ? ap->stream_delay_ms.value : 0);
 
     return p->ProcessStream(channels, ap->capture_stream_config, ap->capture_stream_config, channels);
 }
-extern "C" EXPORT int CALL
-webrtc_audio_processing_process_render_frame(AudioProcessing * ap, float ** channels) {
+extern "C" EXPORT int CALL process_render_frame(AudioProcessing * ap, float ** channels) {
     return ap->processor->ProcessReverseStream(
         channels, ap->render_stream_config, ap->render_stream_config, channels);
 }
 
-extern "C" EXPORT Stats CALL webrtc_audio_processing_get_stats(AudioProcessing * ap) {
+extern "C" EXPORT Stats CALL get_stats(AudioProcessing * ap) {
     (void)ap;
     // TODO: add stats?
     Stats stats = {};
@@ -128,7 +126,7 @@ extern "C" EXPORT Stats CALL webrtc_audio_processing_get_stats(AudioProcessing *
 }
 
 extern "C" EXPORT void CALL
-webrtc_audio_processing_set_config(struct AudioProcessing * ap, struct WebrtcAudioProcessingConfig * config) {
+set_config(struct AudioProcessing * ap, struct WebrtcAudioProcessingConfig * config) {
     auto * p = ap->processor.get();
 
     webrtc::AudioProcessing::Config extra_config;
@@ -179,10 +177,10 @@ webrtc_audio_processing_set_config(struct AudioProcessing * ap, struct WebrtcAud
     p->ApplyConfig(extra_config);
 }
 
-extern "C" EXPORT void CALL webrtc_audio_processing_audio_processing_delete(AudioProcessing * ap) {
+extern "C" EXPORT void CALL audio_processing_delete(AudioProcessing * ap) {
     delete ap;
 }
 
-extern "C" EXPORT bool CALL webrtc_audio_processing_is_success(const int code) {
+extern "C" EXPORT bool CALL is_success(const int code) {
     return code == webrtc::AudioProcessing::kNoError;
 }

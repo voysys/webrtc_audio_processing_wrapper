@@ -282,32 +282,31 @@ extern "C" {
 
 // Creates a new instance of the signal processor.
 EXPORT struct AudioProcessing * CALL
-webrtc_audio_processing_audio_processing_create(struct InitializationConfig init_config, int * error);
+audio_processing_create(struct InitializationConfig init_config, int * error);
 
 // Processes and modifies the audio frame from a capture device. Each element in
 // |channels| is an array of float representing a single-channel frame of 10 ms
 // length. Returns an error code or |kNoError|.
-EXPORT int CALL webrtc_audio_processing_process_capture_frame(struct AudioProcessing * ap, float ** channels);
+EXPORT int CALL process_capture_frame(struct AudioProcessing * ap, float ** channels);
 
 // Processes and optionally modifies the audio frame from a playback device.
 // Each element in |channels| is an array of float representing a single-channel
 // frame of 10 ms length. Returns an error code or |kNoError|.
-EXPORT int CALL webrtc_audio_processing_process_render_frame(struct AudioProcessing * ap, float ** channel3);
+EXPORT int CALL process_render_frame(struct AudioProcessing * ap, float ** channel3);
 
 // Returns statistics from the last |process_capture_frame()| call.
-EXPORT struct Stats CALL webrtc_audio_processing_get_stats(struct AudioProcessing * ap);
+EXPORT struct Stats CALL get_stats(struct AudioProcessing * ap);
 
 // Immediately updates the configurations of the signal processor.
 // May be called multiple times after the initialization and during processing.
-EXPORT void CALL
-webrtc_audio_processing_set_config(struct AudioProcessing * ap, struct WebrtcAudioProcessingConfig * config);
+EXPORT void CALL set_config(struct AudioProcessing * ap, struct WebrtcAudioProcessingConfig * config);
 
 // Every processor created by |audio_processing_create()| needs to destroyed by
 // this function.
-EXPORT void CALL webrtc_audio_processing_audio_processing_delete(struct AudioProcessing * ap);
+EXPORT void CALL audio_processing_delete(struct AudioProcessing * ap);
 
 // Returns true if the code indicates a successful operation.
-EXPORT bool CALL webrtc_audio_processing_is_success(int code);
+EXPORT bool CALL is_success(int code);
 
 #ifdef __cplusplus
 }
