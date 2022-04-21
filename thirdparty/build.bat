@@ -1,3 +1,5 @@
+@echo off
+
 setlocal
 
 REM Run using "x64 Native Tools Command Prompt for VS"

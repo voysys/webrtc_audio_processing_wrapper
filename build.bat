@@ -1,3 +1,5 @@
+@echo off
+
 setlocal
 
 cd thirdparty
