@@ -13,7 +13,7 @@ mkdir build
 mkdir install
 
 cd build
-cmake -DCMAKE_INSTALL_PREFIX=%INSTALL_DIR% ..
-cmake --build .
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=%INSTALL_DIR% ..
+cmake --build . --config Release
 cmake --install .
 cd ..

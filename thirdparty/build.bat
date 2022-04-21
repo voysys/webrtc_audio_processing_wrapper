@@ -40,6 +40,6 @@ cd subprojects\abseil-cpp-20211102.0
 mkdir build
 cd build
 
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=%ABSL_ARTIFACTS_DIR% ..
-cmake --build . --config Release
+cmake -DCMAKE_INSTALL_PREFIX=%ABSL_ARTIFACTS_DIR% ..
+cmake --build .
 cmake --install .
