@@ -1,0 +1,7 @@
+artifacts/
+build/
+include/
+lib/
+*.a
+*.dylib
+version_marker_*
