@@ -4,7 +4,6 @@ cd thirdparty
 CALL build.bat
 cd ..
 
-SET WRAPPER_NAME=webrtc_audio_processing_wrapper
 SET INSTALL_DIR=%cd%\install
 
 rmdir /q /s build
@@ -18,4 +17,3 @@ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=%INSTALL_DIR% ..
 cmake --build . --config Release
 cmake --install .
 cd ..
-
