@@ -21,10 +21,11 @@ mkdir artifacts\webrtc
 mkdir artifacts\absl
 
 REM Build webrtc-audio-processing in %TEMP% to avoid long path issues
-pushd %TEMP%
-rmdir /q /s webrtc_audio
-mkdir webrtc_audio
-cd webrtc_audio
+
+rmdir /q /s build
+
+mkdir build
+cd build
 
 git clone --depth 1 https://github.com/voysys/webrtc-audio-processing.git -b %VERSION%
 
@@ -45,5 +46,3 @@ cd build
 cmake -DCMAKE_INSTALL_PREFIX=%ABSL_ARTIFACTS_DIR% ..
 cmake --build .
 cmake --install .
-
-popd

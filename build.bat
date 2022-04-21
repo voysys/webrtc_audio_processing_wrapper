@@ -2,6 +2,8 @@
 
 setlocal
 
+CALL enable_long_path.bat
+
 cd thirdparty
 CALL build.bat
 cd ..
