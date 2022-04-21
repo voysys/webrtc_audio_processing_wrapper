@@ -38,30 +38,6 @@ OptionalBool make_optional_bool(const bool value) {
     return rv;
 }
 
-// static void deinterleave(const std::vector<float> & src, std::vector<std::vector<float>> * dst) {
-//     const size_t num_channels = dst->size();
-//     const size_t num_samples = (*dst)[0].size();
-//     assert(src.size() == num_channels * num_samples);
-
-//     for (size_t channel_index = 0; channel_index < num_channels; channel_index++) {
-//         for (size_t sample_index = 0; sample_index < num_samples; sample_index++) {
-//             (*dst)[channel_index][sample_index] = src[num_channels * sample_index + channel_index];
-//         }
-//     }
-// }
-
-// static void interleave(const std::vector<std::vector<float>> & src, std::vector<float> * dst) {
-//     const size_t num_channels = src.size();
-//     const size_t num_samples = src[0].size();
-//     assert(dst->size() == num_channels * num_samples);
-
-//     for (size_t channel_index = 0; channel_index < num_channels; channel_index++) {
-//         for (size_t sample_index = 0; sample_index < num_samples; sample_index++) {
-//             (*dst)[num_channels * sample_index + channel_index] = src[channel_index][sample_index];
-//         }
-//     }
-// }
-
 } // namespace
 
 struct AudioProcessing {
@@ -69,8 +45,6 @@ struct AudioProcessing {
     webrtc::StreamConfig capture_stream_config;
     webrtc::StreamConfig render_stream_config;
     OptionalInt stream_delay_ms;
-    // std::vector<std::vector<float>> capture_interleave_buffer;
-    // std::vector<std::vector<float>> render_interleave_buffer;
 };
 
 extern "C" EXPORT AudioProcessing * CALL
