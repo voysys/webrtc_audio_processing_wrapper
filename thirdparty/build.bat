@@ -35,8 +35,6 @@ meson . build --buildtype=release -Dprefix=%WEBRTC_ARTIFACTS_DIR%
 ninja -C build
 ninja -C build install
 
-popd
-
 REM Build abseil only for the headers...
 
 cd subprojects\abseil-cpp-20211102.0
@@ -47,3 +45,5 @@ cd build
 cmake -DCMAKE_INSTALL_PREFIX=%ABSL_ARTIFACTS_DIR% ..
 cmake --build .
 cmake --install .
+
+popd
