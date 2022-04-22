@@ -14,7 +14,7 @@ cd ..
 INSTALL_DIR=${PWD}/install
 
 rm -rf build/
-rm -rf artifacts/
+rm -rf install/
 
 mkdir build
 mkdir install
