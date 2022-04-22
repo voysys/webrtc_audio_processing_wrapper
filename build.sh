@@ -8,7 +8,7 @@ set -x
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 cd thirdparty
-./build.sh
+bash ./build.sh
 cd ..
 
 INSTALL_DIR=${PWD}/install
