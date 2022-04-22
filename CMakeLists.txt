@@ -22,7 +22,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
             VC_EXTRALEAN
             WEBRTC_WIN
             _WINSOCKAPI_
-            USE_MATH_DEFINES)
+            _USE_MATH_DEFINES)
 
   target_compile_options(
     ${CMAKE_PROJECT_NAME}
@@ -59,6 +59,13 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
       ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/artifacts/webrtc/lib/libwebrtc-audio-processing.a
   )
 
+  target_include_directories(
+    ${CMAKE_PROJECT_NAME}
+    PRIVATE
+      ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/artifacts/absl/include
+      ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/artifacts/webrtc/include/webrtc-audio-processing
+  )
+
 endif()
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -83,29 +90,20 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
             -Wno-switch-enum
             -Wno-c++2a-compat
             -Wno-extra-semi-stmt
-            -ffast-math
-            -isystem
-            ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/artifacts/absl/include
-            ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/artifacts/webrtc/include
             -std=c++14
-            -fPIC
-            -fno-strict-aliasing
-            -funsigned-char
-            -ftrapv)
+            -funsigned-char)
 
   target_link_libraries(
     ${CMAKE_PROJECT_NAME}
+    ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/artifacts/webrtc/lib/x86_64-linux-gnu/libwebrtc-audio-processing.a
+  )
+
+  target_include_directories(
+    ${CMAKE_PROJECT_NAME}
     PRIVATE
-      ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/artifacts/webrtc/lib/libwebrtc-audio-processing.a
+      ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/artifacts/absl/include
+      ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/artifacts/webrtc/include/webrtc-audio-processing
   )
 endif()
-
-target_include_directories(
-  ${CMAKE_PROJECT_NAME}
-  PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/artifacts/absl/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/artifacts/webrtc/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/artifacts/webrtc/include/webrtc-audio-processing
-)
 
 install(TARGETS ${CMAKE_PROJECT_NAME} DESTINATION "")

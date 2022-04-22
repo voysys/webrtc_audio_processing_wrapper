@@ -4,7 +4,21 @@
 #pragma warning(push)
 #pragma warning(disable : 4100)
 #endif
+
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wcomma"
+#pragma clang diagnostic ignored "-Wreserved-id-macro"
+#pragma clang diagnostic ignored "-Wshadow-field-in-constructor"
+#pragma clang diagnostic ignored "-Wunused-parameter"
+#endif
+
 #include "modules/audio_processing/include/audio_processing.h"
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+
 #ifdef _WIN32
 #pragma warning(pop)
 #endif
@@ -12,33 +26,33 @@
 #include <algorithm>
 #include <memory>
 
-namespace {
+// namespace {
 
 // This is the default that Chromium uses.
-const int AGC_STARTUP_MIN_VOLUME = 85;
+// const int AGC_STARTUP_MIN_VOLUME = 85;
 
-OptionalDouble make_optional_double(const double value) {
-    OptionalDouble rv;
-    rv.has_value = true;
-    rv.value = value;
-    return rv;
-}
+// OptionalDouble make_optional_double(const double value) {
+//     OptionalDouble rv;
+//     rv.has_value = true;
+//     rv.value = value;
+//     return rv;
+// }
 
-OptionalInt make_optional_int(const int value) {
-    OptionalInt rv;
-    rv.has_value = true;
-    rv.value = value;
-    return rv;
-}
+// OptionalInt make_optional_int(const int value) {
+//     OptionalInt rv;
+//     rv.has_value = true;
+//     rv.value = value;
+//     return rv;
+// }
 
-OptionalBool make_optional_bool(const bool value) {
-    OptionalBool rv;
-    rv.has_value = true;
-    rv.value = value;
-    return rv;
-}
+// OptionalBool make_optional_bool(const bool value) {
+//     OptionalBool rv;
+//     rv.has_value = true;
+//     rv.value = value;
+//     return rv;
+// }
 
-} // namespace
+// } // namespace
 
 struct AudioProcessing {
     std::unique_ptr<webrtc::AudioProcessing> processor;
@@ -53,10 +67,10 @@ audio_processing_create(const InitializationConfig init_config, int * error) {
     ap->processor.reset(webrtc::AudioProcessingBuilder().Create());
 
     const bool has_keyboard = false;
-    ap->capture_stream_config =
-        webrtc::StreamConfig(SAMPLE_RATE_HZ, init_config.num_capture_channels, has_keyboard);
-    ap->render_stream_config =
-        webrtc::StreamConfig(SAMPLE_RATE_HZ, init_config.num_render_channels, has_keyboard);
+    ap->capture_stream_config = webrtc::StreamConfig(
+        SAMPLE_RATE_HZ, static_cast<size_t>(init_config.num_capture_channels), has_keyboard);
+    ap->render_stream_config = webrtc::StreamConfig(
+        SAMPLE_RATE_HZ, static_cast<size_t>(init_config.num_render_channels), has_keyboard);
 
     webrtc::ProcessingConfig pconfig = {
         ap->capture_stream_config,
@@ -70,12 +84,6 @@ audio_processing_create(const InitializationConfig init_config, int * error) {
         delete ap;
         return nullptr;
     }
-
-    // ap->capture_interleave_buffer = std::vector<std::vector<float>>(
-    //     init_config.num_capture_channels, std::vector<float>(NUM_SAMPLES_PER_FRAME, 0.0f));
-
-    // ap->render_interleave_buffer = std::vector<std::vector<float>>(
-    //     init_config.num_render_channels, std::vector<float>(NUM_SAMPLES_PER_FRAME, 0.0f));
 
     return ap;
 }
