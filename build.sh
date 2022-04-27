@@ -20,7 +20,7 @@ mkdir build
 mkdir install
 
 cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="${INSTALL_DIR}" ..
-cmake --build . --config Release
-cmake --install .
+cmake -G Ninja -DCMAKE_BUILD_TYPE=Release ..
+ninja
+ninja install
 cd ..
