@@ -95,7 +95,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 
   target_link_libraries(
     ${CMAKE_PROJECT_NAME}
-    ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/artifacts/webrtc/lib/x86_64-linux-gnu/libwebrtc-audio-processing.a
+    ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/artifacts/webrtc/lib/${CMAKE_SYSTEM_PROCESSOR}-linux-gnu/libwebrtc-audio-processing.a
   )
 
   target_include_directories(
@@ -108,7 +108,4 @@ endif()
 
 install(
   TARGETS ${CMAKE_PROJECT_NAME}
-  RUNTIME DESTINATION bin
   LIBRARY DESTINATION lib)
-
-install(TARGETS ${CMAKE_PROJECT_NAME} DESTINATION "")
