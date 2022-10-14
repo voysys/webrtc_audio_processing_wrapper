@@ -282,7 +282,7 @@ extern "C" {
 
 // Creates a new instance of the signal processor.
 EXPORT struct AudioProcessing * CALL
-audio_processing_create(struct InitializationConfig init_config, int * error);
+audio_processing_create(const struct InitializationConfig * init_config, int * error);
 
 // Processes and modifies the audio frame from a capture device. Each element in
 // |channels| is an array of float representing a single-channel frame of 10 ms

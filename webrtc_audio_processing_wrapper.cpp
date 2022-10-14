@@ -62,15 +62,15 @@ struct AudioProcessing {
 };
 
 extern "C" EXPORT AudioProcessing * CALL
-audio_processing_create(const InitializationConfig init_config, int * error) {
+audio_processing_create(const InitializationConfig * init_config, int * error) {
     AudioProcessing * ap = new AudioProcessing;
     ap->processor.reset(webrtc::AudioProcessingBuilder().Create());
 
     const bool has_keyboard = false;
     ap->capture_stream_config = webrtc::StreamConfig(
-        SAMPLE_RATE_HZ, static_cast<size_t>(init_config.num_capture_channels), has_keyboard);
+        SAMPLE_RATE_HZ, static_cast<size_t>(init_config->num_capture_channels), has_keyboard);
     ap->render_stream_config = webrtc::StreamConfig(
-        SAMPLE_RATE_HZ, static_cast<size_t>(init_config.num_render_channels), has_keyboard);
+        SAMPLE_RATE_HZ, static_cast<size_t>(init_config->num_render_channels), has_keyboard);
 
     webrtc::ProcessingConfig pconfig = {
         ap->capture_stream_config,
