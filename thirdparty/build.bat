@@ -37,7 +37,7 @@ ninja -C build install
 REM Build abseil only for the headers...
 
 cd subprojects
-cd abseil-cpp-20230125.0
+cd abseil-cpp-20230125.1
 
 mkdir build
 cd build
