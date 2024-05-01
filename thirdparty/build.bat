@@ -8,7 +8,7 @@ REM   Python3
 REM   Meson
 REM   Ninja
 
-SET VERSION=v0.1
+SET VERSION=update_1_3
 
 SET WEBRTC_ARTIFACTS_DIR=%cd%\artifacts\webrtc
 SET ABSL_ARTIFACTS_DIR=%cd%\artifacts\absl
@@ -36,7 +36,7 @@ ninja -C build install
 
 REM Build abseil only for the headers...
 
-cd subprojects\abseil-cpp-20211102.0
+cd subprojects\abseil-cpp-20230125.0
 
 mkdir build
 cd build
