@@ -8,7 +8,7 @@ REM   Python3
 REM   Meson
 REM   Ninja
 
-SET VERSION=update_1_3
+SET VERSION=v0.2
 
 SET WEBRTC_ARTIFACTS_DIR=%cd%\artifacts\webrtc
 SET ABSL_ARTIFACTS_DIR=%cd%\artifacts\absl

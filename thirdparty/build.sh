@@ -7,7 +7,7 @@ set -x
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
-VERSION=update_1_3
+VERSION=v0.2
 
 WEBRTC_ARTIFACTS_DIR=${PWD}/artifacts/webrtc
 ABSL_ARTIFACTS_DIR=${PWD}/artifacts/absl/include
