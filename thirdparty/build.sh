@@ -7,7 +7,7 @@ set -x
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
-VERSION=v0.2
+VERSION=44b5c1cf4a0a866288e0bfa5085619dac60b466f
 
 WEBRTC_ARTIFACTS_DIR=${PWD}/artifacts/webrtc
 ABSL_ARTIFACTS_DIR=${PWD}/artifacts/absl/include
@@ -21,8 +21,12 @@ mkdir -p "${ABSL_ARTIFACTS_DIR}"
 
 # Build webrtc-audio-processing
 cd build
-git clone --depth 1 https://github.com/voysys/webrtc-audio-processing.git -b "${VERSION}"
+
+git init webrtc-audio-processing
 cd webrtc-audio-processing
+git remote add origin https://github.com/voysys/webrtc-audio-processing.git
+git fetch --depth 1 origin $VERSION
+git checkout $VERSION
 
 mkdir build
 meson . build --buildtype=release -Dprefix="${WEBRTC_ARTIFACTS_DIR}"

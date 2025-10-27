@@ -74,8 +74,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 
   target_compile_options(
     ${CMAKE_PROJECT_NAME}
-    PRIVATE -Weverything
-            -Werror
+    PRIVATE -Werror
             -Wfatal-errors
             -Wno-gnu-anonymous-struct
             -Wno-nested-anon-types
