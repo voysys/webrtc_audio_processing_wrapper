@@ -7,7 +7,7 @@ set -x
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
-VERSION=44b5c1cf4a0a866288e0bfa5085619dac60b466f
+VERSION=5a8709d00af2ed93ede71c0dc69bcc7cc990e0e6
 
 WEBRTC_ARTIFACTS_DIR=${PWD}/artifacts/webrtc
 ABSL_ARTIFACTS_DIR=${PWD}/artifacts/absl/include
@@ -37,6 +37,6 @@ ninja -C build
 ninja -C build install
 
 # Copy abseil includes
-cd subprojects/abseil-cpp-20230125.1
+cd subprojects/abseil-cpp-20250814.1
 
 rsync -a --prune-empty-dirs --include '*/' --include '*.h' --exclude '*' absl "${ABSL_ARTIFACTS_DIR}"

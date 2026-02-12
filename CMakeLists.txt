@@ -9,7 +9,7 @@ add_library(${CMAKE_PROJECT_NAME} SHARED webrtc_audio_processing_wrapper.h
                                          webrtc_audio_processing_wrapper.cpp)
 
 set_target_properties(
-  ${CMAKE_PROJECT_NAME} PROPERTIES CXX_STANDARD 14 CMAKE_CXX_STANDARD_REQUIRED
+  ${CMAKE_PROJECT_NAME} PROPERTIES CXX_STANDARD 17 CMAKE_CXX_STANDARD_REQUIRED
                                                    TRUE)
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
@@ -45,7 +45,6 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
             -fp:fast
             -fp:except-
             -EHa
-            -std:c++14
             -Zi
             -FS)
 
@@ -89,13 +88,14 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
             -Wno-switch-enum
             -Wno-c++2a-compat
             -Wno-extra-semi-stmt
-            -std=c++14
             -funsigned-char)
 
-  target_link_libraries(
-    ${CMAKE_PROJECT_NAME}
-    ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/artifacts/webrtc/lib/${CMAKE_SYSTEM_PROCESSOR}-linux-gnu/libwebrtc-audio-processing.a
+  find_library(WEBRTC_AP_LIB webrtc-audio-processing
+    PATHS ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/artifacts/webrtc/lib
+    PATH_SUFFIXES "" ${CMAKE_SYSTEM_PROCESSOR}-linux-gnu
+    NO_DEFAULT_PATH
   )
+  target_link_libraries(${CMAKE_PROJECT_NAME} ${WEBRTC_AP_LIB})
 
   target_include_directories(
     ${CMAKE_PROJECT_NAME}
