@@ -12,6 +12,9 @@ VERSION=44b5c1cf4a0a866288e0bfa5085619dac60b466f
 WEBRTC_ARTIFACTS_DIR=${PWD}/artifacts/webrtc
 ABSL_ARTIFACTS_DIR=${PWD}/artifacts/absl/include
 
+# For newer clang versions that don't implicitly include cstdint
+export CXXFLAGS="-include cstdint"
+
 rm -rf artifacts/
 rm -rf build/
 
@@ -29,7 +32,7 @@ git fetch --depth 1 origin $VERSION
 git checkout $VERSION
 
 mkdir build
-meson . build --buildtype=release -Dprefix="${WEBRTC_ARTIFACTS_DIR}"
+meson setup . build --buildtype=release --wrap-mode=forcefallback -Dprefix="${WEBRTC_ARTIFACTS_DIR}"
 ninja -C build
 ninja -C build install
 
